@@ -28,10 +28,8 @@ def herschel_data(filename):
 
     def _get_image_ext(i, index):
         d = Data("image_%i" % (index))
-        d.coords = coordinates_from_wcs(WCS(hdulist[i].header))
-
-        index = index + 1
         d.add_component(hdulist[i].data, hdulist[i].name)
+        d.coords = coordinates_from_wcs(WCS(hdulist[i].header))
         return d
 
     for i, h in enumerate(hdulist):
