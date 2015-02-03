@@ -7,7 +7,7 @@ import astropy.io.fits as fits
 from astropy.wcs import WCS
 
 
-@data_factory('Hubble Image', has_extension('fits fit fits.gz'), default='fits fit fits.gz')
+@data_factory('Herschel Image', has_extension('fits fit fits.gz'), default='fits fit fits.gz')
 def herschel_data(filename):
     """
     Data loader customized for 'typical' hubble fits files
