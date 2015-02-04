@@ -44,6 +44,7 @@ def herschel_data(filename):
     if ((wavelengths != None) and (d['Wavelength'].shape[0] == len(wavelengths))):
         warray = np.zeros(d['Wavelength'].shape, dtype=d['Wavelength'].dtype)
         warray += wavelengths[:, np.newaxis, np.newaxis]
-        d.get_component('Wavelength').data = warray
+        d.remove_component('Wavelength')
+        d.add_component(warray, label='Wavelength')
 
     return d
