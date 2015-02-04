@@ -36,12 +36,12 @@ def herschel_data(filename):
     wavelengths = None
     for h in hdulist:
         if (h.name in ['image', 'error', 'cov']):
-            d.add_component(hdulist[h.name].data, name)
+            d.add_component(hdulist[h.name].data, h.name)
         if (h.name == 'ImageIndex'):
             wavelengths = hdulist[h.name].data.field(0)
             
     # Fix up wavelengths if needed
-    if (wavelengths and d['Wavelength'].shape[0] == len(wavelengths)):
+    if ((wavelengths != None) and (d['Wavelength'].shape[0] == len(wavelengths))):
         warray = np.zeros(d['Wavelength'].shape, dtype=d['Wavelength'].dtype)
         warray += wavelengths[:, np.newaxis, np.newaxis]
         d['Wavelength'] = warray
