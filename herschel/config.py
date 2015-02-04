@@ -25,13 +25,15 @@ def herschel_data(filename):
     """
 
 
-    hdulist = fits.open(filename, memmap=True)
+    hdulist = fits.open(filename, memmap=True, ignore_missing_end=True)
 
     d = Data("data")
     # Fix for invalid CUNIT values in 12.1 PACS data
     for c in ['CUNIT1', 'CUNIT2']:
         if hdulist['image'].header[c]:
-            del hdulist['image'].header[c]
+            hdulist['image'].header[c] = 'deg'
+    if hdulist['image'].header['CUNIT3']:
+        hdulist['image'].header['CUNIT3'] = 'um'
     d.coords = coordinates_from_wcs(WCS(hdulist['image'].header))
     wavelengths = None
     for h in hdulist:
