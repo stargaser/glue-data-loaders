@@ -30,9 +30,9 @@ def herschel_data(filename):
     d = Data("data")
     # Fix for invalid CUNIT values in 12.1 PACS data
     for c in ['CUNIT1', 'CUNIT2']:
-        if hdulist['image'].header[c]:
+        if (c in hdulist['image'].header.keys()):
             hdulist['image'].header[c] = 'deg'
-    if hdulist['image'].header['CUNIT3']:
+    if ('CUNIT3' in hdulist['image'].header.keys()):
         hdulist['image'].header['CUNIT3'] = 'um'
     d.coords = coordinates_from_wcs(WCS(hdulist['image'].header))
     wavelengths = None
@@ -41,7 +41,7 @@ def herschel_data(filename):
             d.add_component(hdulist[h.name].data, h.name)
         if (h.name == 'ImageIndex'):
             wavelengths = hdulist[h.name].data.field(0)
-            
+
     # Fix up wavelengths if needed
     if ((wavelengths != None) and (d['Wavelength'].shape[0] == len(wavelengths))):
         warray = np.zeros(d['Wavelength'].shape, dtype=d['Wavelength'].dtype)
