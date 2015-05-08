@@ -15,7 +15,7 @@ def herschel_data(filename):
 
     This function extracts extension named 'image',
     'error', 'coverage', etc
-    from a file. Each is retuned as a glue Data object.
+    from a file. Each is returned as a glue Data object.
     To handle PACS cubes, if ImageIndex extension is present
     it is used to provide wavelengths
 
