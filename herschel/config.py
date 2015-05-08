@@ -37,7 +37,7 @@ def herschel_data(filename):
     d.coords = coordinates_from_wcs(WCS(hdulist['image'].header))
     wavelengths = None
     for h in hdulist:
-        if (h.name in ['image', 'error', 'cov']):
+        if (h.name in ['image', 'error', 'coverage']):
             d.add_component(hdulist[h.name].data, h.name)
         if (h.name == 'ImageIndex'):
             wavelengths = hdulist[h.name].data.field(0)
